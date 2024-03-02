@@ -27,12 +27,15 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ms.umaq.unitconverter.ui.theme.UnitConverterTheme
+import kotlin.random.Random
 
 
 class MainActivity : ComponentActivity() {
@@ -45,66 +48,61 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    UnitConverter()
+                    Captain()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun UnitConverter() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = "Unit Converter", modifier = Modifier.padding(100.dp))
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = "", onValueChange = {})
-        Spacer(modifier = Modifier.height(16.dp))
-        Row {
-            Box {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "Select")
-                    Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-                }
-                DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
-                    DropdownMenuItem(text = { Text("Centimeters") }, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text("Meters") }, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text("Feet") }, onClick = { /*TODO*/ })
-
-                }
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Box {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "Select")
-                    Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-                }
-                DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
-                    DropdownMenuItem(text = { Text("Centimeters") }, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text("Meters") }, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text("Feet") }, onClick = { /*TODO*/ })
-
-                }
-            }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Result:")
     }
 
     @Composable
-    fun unitConverterPreview() {
-        UnitConverter()
+    fun Captain() {
+        val treasuresFound = remember { mutableStateOf(0) }
+        val direction = remember { mutableStateOf("North") }
+        val StormOrTreasure = remember { mutableStateOf("") }
+        Column {
+            Text(text = "Treasures Found ${treasuresFound.value}")
+            Text(text = "Current Direction ${direction.value}")
+            Text(text = "${StormOrTreasure.value}")
+            Button(onClick = {
+                direction.value = "North"
+                if (Random.nextBoolean()) {
+                    treasuresFound.value += 1
+                    StormOrTreasure.value = "WE FOUND VALUE"
+                } else {
+                    StormOrTreasure.value = "We in the storm"
+                }
+            }) {
+                Text(text = "Sail North")
+            }
+            Button(onClick = {
+                direction.value = "West"
+                if (Random.nextBoolean()) {
+                    treasuresFound.value += 1
+                }
+            }) {
+                Text(text = "Sail West")
+            }
+
+            Button(onClick = {
+                direction.value = "East"
+                if (Random.nextBoolean()) {
+                    treasuresFound.value += 1
+                }
+            }) {
+                Text(text = "Sail East")
+            }
+
+            Button(onClick = {
+                direction.value = "South"
+                if (Random.nextBoolean()) {
+                    treasuresFound.value += 1
+                }
+            }) {
+                Text(text = "Sail South")
+            }
+        }
 
     }
 }
+
+
