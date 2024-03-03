@@ -27,8 +27,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -56,46 +58,46 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Captain() {
-        val treasuresFound = remember { mutableStateOf(0) }
-        val direction = remember { mutableStateOf("North") }
-        val StormOrTreasure = remember { mutableStateOf("") }
+        var treasuresFound by remember { mutableStateOf(0) }
+        var direction by remember { mutableStateOf("North") }
+        var StormOrTreasure by remember { mutableStateOf("") }
         Column {
-            Text(text = "Treasures Found ${treasuresFound.value}")
-            Text(text = "Current Direction ${direction.value}")
-            Text(text = "${StormOrTreasure.value}")
+            Text(text = "Treasures Found ${treasuresFound}")
+            Text(text = "Current Direction ${direction}")
+            Text(text = "${StormOrTreasure}")
             Button(onClick = {
-                direction.value = "North"
+                direction = "North"
                 if (Random.nextBoolean()) {
-                    treasuresFound.value += 1
-                    StormOrTreasure.value = "WE FOUND VALUE"
+                    treasuresFound += 1
+                    StormOrTreasure = "WE FOUND VALUE"
                 } else {
-                    StormOrTreasure.value = "We in the storm"
+                    StormOrTreasure = "We in the storm"
                 }
             }) {
                 Text(text = "Sail North")
             }
             Button(onClick = {
-                direction.value = "West"
+                direction = "West"
                 if (Random.nextBoolean()) {
-                    treasuresFound.value += 1
+                    treasuresFound += 1
                 }
             }) {
                 Text(text = "Sail West")
             }
 
             Button(onClick = {
-                direction.value = "East"
+                direction = "East"
                 if (Random.nextBoolean()) {
-                    treasuresFound.value += 1
+                    treasuresFound += 1
                 }
             }) {
                 Text(text = "Sail East")
             }
 
             Button(onClick = {
-                direction.value = "South"
+                direction = "South"
                 if (Random.nextBoolean()) {
-                    treasuresFound.value += 1
+                    treasuresFound += 1
                 }
             }) {
                 Text(text = "Sail South")
